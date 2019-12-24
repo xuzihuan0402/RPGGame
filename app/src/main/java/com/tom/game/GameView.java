@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ public class GameView extends View {
         canvas.drawBitmap(bitmap,posX,posY,paint);
         lionWidth = bitmap.getWidth();
         lionHeight = bitmap.getHeight();
+        Log.d("GameActivity","size"+bitmap.getWidth()+","+bitmap.getHeight());
     }
 
     public float getPosX() {
