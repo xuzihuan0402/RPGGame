@@ -41,6 +41,13 @@ public class GameView extends View {
         return posY;
     }
 
+    public void moveRight(){
+        if(posX<getWidth()-lionWidth){
+         posX = posX + 50;
+         invalidate();
+        }
+    }
+
     public void setPosX(float posX) {
         if(posX > 0 && posX < getWidth()-lionWidth){
         this.posX = posX;

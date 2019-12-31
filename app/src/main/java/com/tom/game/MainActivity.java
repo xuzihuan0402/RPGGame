@@ -44,8 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.arrow_right:
                 Log.d("MainActivity","onClick: RIGTH");
-                gameView.setPosX(gameView.getPosX()+50);
-                gameView.invalidate();
+                gameView.moveRight();
                 break;
         }
     }
