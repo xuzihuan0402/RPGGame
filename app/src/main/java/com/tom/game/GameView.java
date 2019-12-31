@@ -15,6 +15,9 @@ public class GameView extends View {
     private float posX,posY=400;
     private int lionWidth;
     private int lionHeight;
+    Lion lion;
+    private Bitmap bitmapMonkey;
+    private Bitmap bitmapNG;
 
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
@@ -24,13 +27,22 @@ public class GameView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (lion == null) {
+            lion = new Lion(this);
+            bitmapMonkey = BitmapFactory.decodeResource(getResources(),R.drawable.lion);
+            bitmapNG = BitmapFactory.decodeResource(getResources(),R.drawable.lion_ng);
+        }
+
+        if(lion.direction == Lion.DIRECTION_NG){
+            bitmapMonkey = bitmapNG;
+        }
         Paint paint = new Paint();
         canvas.drawLine(400,0,0,600,paint);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.lion);
-        canvas.drawBitmap(bitmap,posX,posY,paint);
-        lionWidth = bitmap.getWidth();
-        lionHeight = bitmap.getHeight();
-        Log.d("GameActivity","size"+bitmap.getWidth()+","+bitmap.getHeight());
+
+        canvas.drawBitmap(bitmapMonkey,lion.getX(),lion.getY(),paint);
+        lionWidth = bitmapMonkey.getWidth();
+        lionHeight = bitmapMonkey.getHeight();
+        Log.d("GameActivity","size"+bitmapMonkey.getWidth()+","+bitmapMonkey.getHeight());
     }
 
     public float getPosX() {
@@ -41,13 +53,31 @@ public class GameView extends View {
         return posY;
     }
 
-    public void moveRight(){
-        if(posX<getWidth()-lionWidth){
-         posX = posX + 50;
-         invalidate();
+    public void moveDown() {
+        if (lion.getY() < getHeight()-150) {
+            lion.setDirection(Lion.DIRECTION_DOWN);
+            invalidate();
+        }
+    }
+    public void moveUp() {
+        if (lion.getY() > 50) {
+            lion.setDirection(Lion.DIRECTION_UP);
+            invalidate();
+        }
+    }
+    public void moveRight() {
+        if (lion.getX() < getWidth()-150) {
+            lion.setDirection(Lion.DIRECTION_RIGHT);
+            invalidate();
         }
     }
 
+    public void moveLeft() {
+        if (lion.getX() > 50) {
+            lion.setDirection(Lion.DIRECTION_LEFT);
+            invalidate();
+        }
+    }
     public void setPosX(float posX) {
         if(posX > 0 && posX < getWidth()-lionWidth){
         this.posX = posX;
